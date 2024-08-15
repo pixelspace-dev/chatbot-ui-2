@@ -34,7 +34,11 @@ export async function POST(request: NextRequest) {
           content: messageContent.map((content: any) => {
             if (typeof content === "string") {
               // Handle the case where content is a string
-              return { type: "text", text: content }
+              return {
+                type: "text",
+                text: content,
+                cache_control: { type: "ephemeral" }
+              }
             } else if (
               content?.type === "image_url" &&
               content?.image_url?.url?.length
@@ -56,7 +60,8 @@ export async function POST(request: NextRequest) {
     )
 
     const anthropic = new Anthropic({
-      apiKey: profile.anthropic_api_key || ""
+      apiKey: profile.anthropic_api_key || "",
+      defaultHeaders: { "anthropic-beta": "prompt-caching-2024-07-31" }
     })
 
     try {
