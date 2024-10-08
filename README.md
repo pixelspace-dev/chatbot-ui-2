@@ -1,4 +1,4 @@
-# Chatbot UI
+# Chatbot UI - Macaco
 
 The open-source AI chat app for everyone.
 
